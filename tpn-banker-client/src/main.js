@@ -17,6 +17,7 @@ import Row from 'primevue/row'
 import Message from 'primevue/message'
 import Toast from 'primevue/toast'
 import Textarea from 'primevue/textarea'
+import Card from 'primevue/card'
 import Image from 'primevue/image'
 //import '@fontawesome/fontawesome-free/css/all.css'
 
@@ -78,7 +79,8 @@ app.use(PrimeVue, {
 //Prime Vue components
 app.component('PrimeButton', Button)
 app.component('Column', Column)
-app.component('InputTable', InputTable)
+app.component('Card', Card);
+
 app.component('Row', Row)
 app.component('InputText', InputText)
 app.component('Message', Message)
@@ -88,4 +90,4 @@ app.component('Toast', Toast)
 app.component('DataTable', DataTable)
 
 //Mount the app
-app.mount('#app')
+app.mount('#app') 
