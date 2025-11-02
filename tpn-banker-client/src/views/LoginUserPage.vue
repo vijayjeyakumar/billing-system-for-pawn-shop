@@ -1,74 +1,233 @@
 <template>
-  <div class="login-wrapper">
-    <div class="login-inner">
-      <Card class="login-card">
-        <template #title>
-          <h2 class="login-title">Sign In</h2>
-        </template>
-        <template #content>
-          <div class="p-fluid">
-            <div class="p-field">
-              <label for="username">Username</label>
-              <InputText id="username" v-model="username" placeholder="Enter username" />
-            </div>
-            <div class="p-field">
-              <label for="password">Password</label>
-              <InputText id="password" type="password" v-model="password" placeholder="Enter password" />
-            </div>
-            <Button label="Login" @click="handleLogin" class="login-button" />
-          </div>
-        </template>
-      </Card>
+  <div class="login-container">
+    <div class="login-card">
+      <!-- Header -->
+      <div class="login-header">
+        <div class="icon-wrapper">
+          <i class="pi pi-lock"></i>
+        </div>
+        <h1>Welcome </h1>
+        <p>Sign in to continue</p>
+      </div>
+
+      <!-- Form -->
+      <form @submit.prevent="handleSubmit" class="login-form">
+        <!-- Email Field -->
+        <div class="field">
+          <label for="email">Email Address</label>
+          <span class="p-input-icon-left w-full">
+            <i class="pi pi-envelope"></i>
+            <InputText
+              id="email"
+              v-model="email"
+              type="email"
+              
+              class="w-full"
+              required
+            />
+          </span>
+        </div>
+
+        <!-- Password Field -->
+        <div class="field">
+          <label for="password">Password</label>
+          <span class="p-input-icon-left w-full">
+            <i class="pi pi-lock"></i>
+            <Password
+              id="password"
+              v-model="password"
+            
+              :toggleMask="true"
+              :feedback="false"
+              class="w-full"
+              inputClass="w-full"
+              required
+            />
+          </span>
+        </div>
+ 
+
+        <!-- Submit Button -->
+        <Button
+          type="submit"
+          label="Sign In"
+          icon="pi pi-sign-in"
+          class="w-full login-button"
+        />
+
+
+      </form>
     </div>
+
+     
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
+import Button from 'primevue/button'; 
 
-const username = ref('');
+// Reactive state
+const email = ref('');
 const password = ref('');
+const rememberMe = ref(false);
 
-function handleLogin() {
-  console.log('Logging in with:', username.value, password.value);
-}
+// Methods
+const handleSubmit = () => {
+  console.log('Login attempt:', {
+    email: email.value,
+    password: password.value,
+    rememberMe: rememberMe.value
+  });
+
+  // Show alert instead of toast
+  alert(`Login submitted successfully!\nEmail: ${email.value}`);
+  
+  // In a real app, you would make an API call here:
+  // await loginUser({ email: email.value, password: password.value });
+};
+ 
+
 </script>
 
 <style scoped>
-.login-wrapper {
+.login-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-  background-color: #f4f6f8;
-  box-sizing: border-box;
-}
-
-.login-inner {
-  width: 100%;
-  max-width: 400px;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 1rem;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .login-card {
   width: 100%;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  border-radius: 8px;
+  max-width: 450px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideUp 0.5s ease-out;
 }
 
-.login-title {
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.login-header {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 3rem 2rem;
   text-align: center;
+  color: white;
+}
+
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
   margin-bottom: 1rem;
+}
+
+.icon-wrapper i {
+  font-size: 2rem;
+}
+
+.login-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+}
+
+.login-header p {
+  margin: 0;
+  opacity: 0.9;
+  font-size: 0.95rem;
+}
+
+.login-form {
+  padding: 2rem;
+}
+
+.field {
+  margin-bottom: 1.5rem;
+}
+
+.field label {
+  display: block;
   font-weight: 600;
-  color: #2c3e50;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
 }
-
-.p-field {
-  margin-bottom: 1.25rem;
-}
-
+ 
+ 
+ 
 .login-button {
-  width: 100%;
+  height: 48px;
+  font-size: 1rem;
   font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  transition: transform 0.2s;
+}
+
+.login-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(20, 9, 228, 0.4);
+}
+ 
+ 
+/* PrimeVue component customization */
+:deep(.p-inputtext) {
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  transition: all 0.2s;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+:deep(.p-inputtext:focus) {
+  border-color: #667eea;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  color: #111827;
+}
+
+:deep(.p-password input) {
+  padding-left: 2.5rem;
+  color: #1f2937;
+  font-size: 0.95rem;
+}
+
+:deep(.p-input-icon-left > i) {
+  left: 0.75rem;
+  color: #9ca3af;
+}
+ 
+.w-full {
+  width: 100%;
 }
 </style>

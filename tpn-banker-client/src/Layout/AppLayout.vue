@@ -8,7 +8,7 @@
 </template>
 
 <script setup>
-import HeaderRibbon from '../src/components/HeaderRibbon.vue'
+import HeaderRibbon from './HeaderRibbon.vue'
 </script>
 
 <style scoped>
