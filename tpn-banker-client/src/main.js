@@ -1,6 +1,7 @@
 import './assets/main.css'
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+//import { createPinia } from 'pinia'
+import ToastService from 'primevue/toastservice';
 import PrimeVue from 'primevue/config'
 import App from './App.vue'
 import router from './router'
@@ -65,29 +66,26 @@ const DarkPreset = definePreset(Aura.dark, {
 
 //Create App & Enable Plugins to our App
 const app = createApp(App)
-app.use(createPinia())
+//app.use(createPinia())
 app.use(router)
+app.use(ToastService);
 app.use(PrimeVue, {
-  theme: {
-    preset: DarkPreset,
-    options: {
-      darkModeSelector: '.my-app-dark',
-    },
-  },
+  ripple: true,
+  pt: DarkPreset,
+  nstyled: false,
+  dark: true,     
 })
-
 //Prime Vue components
 app.component('PrimeButton', Button)
 app.component('Column', Column)
 app.component('Card', Card);
-
 app.component('Row', Row)
 app.component('InputText', InputText)
 app.component('Message', Message)
 app.component('Image', Image)
 app.component('Textarea', Textarea)
 app.component('Toast', Toast)
-app.component('DataTable', DataTable)
+app.component('DataTable', DataTable) 
 
 //Mount the app
 app.mount('#app') 

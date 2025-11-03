@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginUser from '../views/LoginUserPage.vue'
+import customerListPage from '../views/CustomerListPage.vue'
 
 
 const routes = [
@@ -8,7 +9,17 @@ const routes = [
     component: LoginUser,
     props: true,
     meta: {title: "Login"}
-  }
+  },
+   {
+      path: '/',
+      redirect: '/login'
+    },
+   {
+      path: '/customer-list-page',
+      component: customerListPage,
+      props: true,
+      meta: {title: "Customer List"}
+    }
 ]
 
 const router = createRouter({

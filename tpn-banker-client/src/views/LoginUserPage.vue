@@ -1,28 +1,30 @@
 <template>
-  <div class="login-container">
+  <div class="login-container surface-ground">
     <div class="login-card">
+
       <!-- Header -->
       <div class="login-header">
         <div class="icon-wrapper">
-          <i class="pi pi-lock"></i>
+           <img src="/public/icon.png" alt="My Logo" class="my-logo-class" />
         </div>
-        <h1>Welcome </h1>
+        <h1>Welcome Back</h1>
         <p>Sign in to continue</p>
       </div>
 
       <!-- Form -->
-      <form @submit.prevent="handleSubmit" class="login-form">
+      <form @submit.prevent="handleSubmit" class="login-form"> 
+
         <!-- Email Field -->
         <div class="field">
-          <label for="email">Email Address</label>
+          <label for="email" class="block text-100 font-medium mb-2">Email Address</label>
           <span class="p-input-icon-left w-full">
             <i class="pi pi-envelope"></i>
             <InputText
               id="email"
               v-model="email"
               type="email"
-              
-              class="w-full"
+              placeholder="Enter your email Here"
+              class="w-full p-inputtext-lg"
               required
             />
           </span>
@@ -30,66 +32,67 @@
 
         <!-- Password Field -->
         <div class="field">
-          <label for="password">Password</label>
+          <label for="password" class="block text-100 font-medium mb-2">Password</label>
           <span class="p-input-icon-left w-full">
-            <i class="pi pi-lock"></i>
+            <i class="pi pi-lock" ></i>
             <Password
               id="password"
               v-model="password"
-            
-              :toggleMask="true"
+              placeholder="Enter your password Here"
               :feedback="false"
               class="w-full"
-              inputClass="w-full"
+              inputClass="w-full p-inputtext-lg"
               required
             />
           </span>
         </div>
- 
 
         <!-- Submit Button -->
-        <Button
-          type="submit"
-          label="Sign In"
-          icon="pi pi-sign-in"
-          class="w-full login-button"
-        />
+      
+      <PrimeButton label="Sign In" type="submit" severity="primary"  raised size="large" class="w-full"  />
 
 
       </form>
     </div>
-
-     
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
-import Button from 'primevue/button'; 
+import PrimeButton from 'primevue/button';
+import { useToast } from 'primevue/usetoast';
+import { useRouter } from 'vue-router';
 
 // Reactive state
+const toast = useToast();
+const router = useRouter();
 const email = ref('');
-const password = ref('');
-const rememberMe = ref(false);
+const password = ref(''); 
+
+onMounted(() => {
+  console.log('Login page mounted');
+});
 
 // Methods
 const handleSubmit = () => {
-  console.log('Login attempt:', {
-    email: email.value,
-    password: password.value,
-    rememberMe: rememberMe.value
-  });
+  console.log('Login attempt');
+
+
+  //Here call API for validation put inside try catch
 
   // Show alert instead of toast
-  alert(`Login submitted successfully!\nEmail: ${email.value}`);
-  
-  // In a real app, you would make an API call here:
-  // await loginUser({ email: email.value, password: password.value });
-};
- 
+  toast.add({
+    severity: 'success',
+    summary: 'Success Message',
+    detail: 'Login Success',
+    life: 5000 
+  });
 
+  //Navigate to customer list page
+  router.push('/customer-list-page');
+};
 </script>
 
 <style scoped>
@@ -102,10 +105,8 @@ const handleSubmit = () => {
   width: 100vw;
   height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   padding: 1rem;
   overflow-y: auto;
   z-index: 1000;
@@ -114,10 +115,9 @@ const handleSubmit = () => {
 .login-card {
   width: 100%;
   max-width: 450px;
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  background: var(--surface-card);
   animation: slideUp 0.5s ease-out;
 }
 
@@ -133,10 +133,10 @@ const handleSubmit = () => {
 }
 
 .login-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--primary-color);
   padding: 3rem 2rem;
   text-align: center;
-  color: white;
+  color: var(--primary-color-text);
 }
 
 .icon-wrapper {
@@ -146,13 +146,13 @@ const handleSubmit = () => {
   width: 64px;
   height: 64px;
   background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
   border-radius: 50%;
   margin-bottom: 1rem;
 }
 
 .icon-wrapper i {
   font-size: 2rem;
+  color: var(--primary-color-text);
 }
 
 .login-header h1 {
@@ -175,58 +175,15 @@ const handleSubmit = () => {
   margin-bottom: 1.5rem;
 }
 
-.field label {
-  display: block;
-  font-weight: 600;
-  color: #374151;
-  margin-bottom: 0.5rem;
-  font-size: 0.875rem;
-}
- 
- 
- 
-.login-button {
-  height: 48px;
-  font-size: 1rem;
-  font-weight: 600;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
-  transition: transform 0.2s;
-}
-
-.login-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(20, 9, 228, 0.4);
-}
- 
- 
-/* PrimeVue component customization */
-:deep(.p-inputtext) {
-  padding: 0.75rem 1rem 0.75rem 2.5rem;
-  border-radius: 8px;
-  border: 1px solid #d1d5db;
-  transition: all 0.2s;
-  color: #1f2937;
-  font-size: 0.95rem;
-}
-
-:deep(.p-inputtext:focus) {
-  border-color: #667eea;
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-  color: #111827;
-}
-
 :deep(.p-password input) {
-  padding-left: 2.5rem;
-  color: #1f2937;
-  font-size: 0.95rem;
+  width: 100%;
 }
 
 :deep(.p-input-icon-left > i) {
   left: 0.75rem;
-  color: #9ca3af;
+  color: var(--text-color-secondary);
 }
- 
+
 .w-full {
   width: 100%;
 }
