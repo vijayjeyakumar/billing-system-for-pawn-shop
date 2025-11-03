@@ -76,7 +76,7 @@ app.use(PrimeVue, {
   dark: true,     
 })
 //Prime Vue components
-app.component('PrimeButton', Button)
+app.component('Button', Button)
 app.component('Column', Column)
 app.component('Card', Card);
 app.component('Row', Row)

@@ -139,16 +139,7 @@ const handleSubmit = () => {
   color: var(--primary-color-text);
 }
 
-.icon-wrapper {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 64px;
-  height: 64px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  margin-bottom: 1rem;
-}
+
 
 .icon-wrapper i {
   font-size: 2rem;
