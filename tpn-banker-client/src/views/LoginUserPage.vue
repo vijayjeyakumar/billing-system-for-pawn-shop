@@ -5,7 +5,8 @@
       <!-- Header -->
       <div class="login-header">
         <div class="icon-wrapper">
-           <img src="/public/icon.png" alt="My Logo" class="my-logo-class" />
+           <img src="/src/assets/icon2.png" alt="My Logo" class="my-logo-class" />
+
         </div>
         <h1>Welcome Back</h1>
         <p>Sign in to continue</p>
@@ -18,7 +19,7 @@
         <div class="field">
           <label for="email" class="block text-100 font-medium mb-2">Email Address</label>
           <span class="p-input-icon-left w-full">
-            <i class="pi pi-envelope"></i>
+
             <InputText
               id="email"
               v-model="email"
@@ -34,7 +35,6 @@
         <div class="field">
           <label for="password" class="block text-100 font-medium mb-2">Password</label>
           <span class="p-input-icon-left w-full">
-            <i class="pi pi-lock" ></i>
             <Password
               id="password"
               v-model="password"
@@ -85,7 +85,6 @@ const handleSubmit = () => {
   // Show alert instead of toast
   toast.add({
     severity: 'success',
-    summary: 'Success Message',
     detail: 'Login Success',
     life: 5000 
   });
