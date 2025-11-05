@@ -1,9 +1,7 @@
 <template>
   <div class="layout-wrapper">
     <HeaderRibbon v-if="isLoginRoute" />
-
     <Toast style="top: 65px;" />
-
     <router-view></router-view>
   </div>
 </template>
@@ -14,7 +12,7 @@ import { computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const isLoginRoute = computed(() => route.path !== '/login' || route.path !== '/')
+const isLoginRoute = computed(() => route.path !== '/login')
 
 // Log on initial mount
 onMounted(() => {

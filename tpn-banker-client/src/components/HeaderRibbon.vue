@@ -15,14 +15,13 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref, onMounted } from 'vue';
 import { useToast } from 'primevue/usetoast';
 import Button from 'primevue/button';
 
 const toast = useToast();
 const router = useRouter();
 
-
+console.log('HeaderRibbon mounted')
 const handleNavigation = (toPath) => {
 
   console.log("Navigating to:", toPath);

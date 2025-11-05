@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginUser from '../views/LoginUserPage.vue'
 import customerListPage from '../views/CustomerListPage.vue'
+import CustomerDetailsPage from '@/views/CustomerDetailsPage.vue' 
 
 
 const routes = [
@@ -19,6 +20,12 @@ const routes = [
       component: customerListPage,
       props: true,
       meta: {title: "Customer List"}
+    },
+    {
+      path: '/customer-details-page',
+      component: CustomerDetailsPage,
+      
+      meta: {title: "Customer Details Page"}
     }
 ]
 

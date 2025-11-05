@@ -1,35 +1,41 @@
 <template>
-    <div class="flex justify-center">
- <div class="w-full max-w-6xl px-4">
-            <Card class="w-full p-4 shadow-3">
+    <!-- <div class="flex justify-center mt-4 mb-4"> -->
+            <Card class="flex justify-center mt-4 mb-4 p-4 shadow-3">
                 <template #content>
-                    <DataTable :value="products" :filters="filters" filterDisplay="menu" >
+                     <!-- <div class="flex justify-center"> -->
+
+                    <DataTable :value="products" :filters="filters" filterDisplay="menu" tableStyle="table-layout: fixed">
                         <template #header>
                             <div class="grid">
                                 <div class="col-3 mb-3 mt-3">
-                                    <span class="p-input-icon-left w-full">
+                                    <span class="p-input-icon-left w-4">
                                         <i class="pi pi-search" />
-                                        <InputText v-model="filters['global'].value" placeholder="Global Search..."
-                                            class="w-full" />
+                                        <InputText v-model="filters['global'].value" placeholder="Global Search..." class="w-full" />
                                     </span>
                                     <Button icon="pi pi-times" class="mt-2 text-gray-700" />
                                 </div>
                             </div>
                         </template>
+
                         <Column field="id">
                             <template #header> <h3 class="font-bold text-xl">ID</h3></template>
                         </Column>
                         
-                        <Column field="customerId">
+                        <Column field="customerId" headerClass="uniform-header" style="width: 200px">
                             <template #header> <h3 class="font-bold text-xl">CUSTOMER ID</h3></template>
                         </Column>
-                        <Column field="name">
+                        <Column field="name" headerClass="uniform-header" style="width: 120px">
                             <template #header> <h3 class="font-bold text-xl">NAME</h3></template>
                         </Column>
+
+                        <!-- <Column field="name" headerClass="uniform-header" style="width: 120px">
+                            <template #header><span>NAME</span></template>
+                        </Column> -->
+
                        <Column field="phone">
                             <template #header> <h3 class="font-bold text-xl">PHONE NUMBER</h3></template>
                         </Column>
-                        <Column field="Aadhar">
+                        <Column field="aadhar">
                             <template #header> <h3 class="font-bold text-xl">AADHAR</h3></template>
                         </Column>
                         <Column field="interest">
@@ -52,11 +58,10 @@
                         </Column>
            
                     </DataTable>
-
+               
                 </template>
                 </Card>
-        </div>
-    </div>
+    
 </template>
 
 
@@ -137,3 +142,12 @@ const products = ref([
   }
 ]);  
 </script>
+
+
+
+<style scoped>
+.uniform-header {
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: center;
+}</style>
