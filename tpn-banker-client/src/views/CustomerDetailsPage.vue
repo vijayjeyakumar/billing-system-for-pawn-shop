@@ -4,7 +4,7 @@
       <div class="card-header">
         <div class="customer-info">
           <h2>{{ customer.name }}</h2>
-          <p><strong>ID:</strong> {{ customer.id }}</p>
+         
           <p><strong>Customer ID:</strong> {{ customer.customerId }}</p>
         </div>
       </div>
@@ -34,7 +34,6 @@ onMounted(() => {
   console.log('CustomerDetailsPage mounted');
 
   customer.value = {
-    id: 1,
     customerId: 'CUST001',
     name: 'John Doe',
     phone: '9876543210',
@@ -45,9 +44,7 @@ onMounted(() => {
     processedBy: 'Admin',
     dueDate: '2025-12-01',
   };
-    setInterval(() => {
-    console.log('Still on page:', window.location.pathname);
-  }, 1000);
+  
 });
 
 </script>
@@ -59,18 +56,19 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eef2f7;
+  background-color: #2a2833 ;
   padding: 2rem;
   box-sizing: border-box;
 }
 
 .customer-card {
-  background: #1e0261;
+  background: #ffffff;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   width: 100%;
+   color: #1d1c1c;
 }
 
 .card-header {

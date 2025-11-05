@@ -71,7 +71,6 @@ import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
  
 import InputText from 'primevue/inputtext';
-import InputIcon from 'primevue/inputicon';
 import Button from 'primevue/button';
 import Card  from 'primevue/card'; 
 
