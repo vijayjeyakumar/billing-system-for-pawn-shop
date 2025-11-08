@@ -4,10 +4,8 @@
 
       <!-- Header -->
       <div class="login-header">
-        <div class="icon-wrapper">
            <img src="/src/assets/icon2.png" alt="My Logo" class="my-logo-class" />
-
-        </div>
+      
         <h1>Welcome Back</h1>
         <p>Sign in to continue</p>
       </div>
@@ -47,7 +45,7 @@
           </span>
         </div>
 
-        <!-- Submit Button -->
+      <!-- Submit Button -->
       
       <PrimeButton label="Sign In" type="submit" severity="primary"  raised size="large" class="w-full"  />
 
@@ -139,11 +137,6 @@ const handleSubmit = () => {
 }
 
 
-
-.icon-wrapper i {
-  font-size: 2rem;
-  color: var(--primary-color-text);
-}
 
 .login-header h1 {
   font-size: 2rem;

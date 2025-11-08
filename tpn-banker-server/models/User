@@ -1,0 +1,9 @@
+// models/User.js
+const users = [
+  { username: 'admin', password: 'secret' },
+  { username: 'vijay', password: 'poetic' }
+];
+
+exports.findByUsername = (username) => {
+  return users.find(user => user.username === username);
+};
