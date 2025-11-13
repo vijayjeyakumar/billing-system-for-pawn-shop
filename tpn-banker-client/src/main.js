@@ -20,7 +20,9 @@ import Toast from 'primevue/toast'
 import Textarea from 'primevue/textarea'
 import Card from 'primevue/card'
 import Image from 'primevue/image'
-//import '@fontawesome/fontawesome-free/css/all.css'
+import Dropdown from 'primevue/dropdown';
+import Calendar from 'primevue/calendar';
+import Dialog from 'primevue/dialog'; 
 
 const DarkPreset = definePreset(Aura.dark, {
   semantic: {
@@ -86,6 +88,8 @@ app.component('Image', Image)
 app.component('Textarea', Textarea)
 app.component('Toast', Toast)
 app.component('DataTable', DataTable) 
-
+app.component('Dropdown', Dropdown);
+app.component('Calendar', Calendar);
+app.component('Dialog', Dialog)
 //Mount the app
 app.mount('#app') 
