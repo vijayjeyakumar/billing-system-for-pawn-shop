@@ -10,12 +10,12 @@
           <div class="flex flex-column gap-4 p-fluid">
             <!-- Row 1 -->
             <div class="field flex align-items-center gap-4">
-              <label for="id" class="font-bold text-lg w-6">ID *</label>
+              <label for="id" class="font-bold text-lg w-6">Bill ID *</label>
               <InputText 
                 id="id" 
                 v-model="billData.id" 
                 class="flex-1 text-lg p-3" 
-                placeholder="Enter ID"
+                placeholder="Enter Bill ID"
               />
             </div>
 
@@ -110,6 +110,27 @@
               />
             </div>
 
+            <div class="field flex align-items-center gap-4">
+    <label for="photo" class="font-bold text-lg w-6">Customer Photo</label>
+    <input 
+      type="file" 
+      id="photo"
+      accept="image/*"
+      @change="handlePhotoUpload"
+      class="flex-1 text-lg p-2"
+    />
+  </div>
+          <div class="field flex align-items-center gap-4">
+    <label for="photo" class="font-bold text-lg w-6">Jwell Photo</label>
+    <input 
+      type="file" 
+      id="photo"
+      accept="image/*"
+      @change="handlePhotoUploadOfjwell"
+      class="flex-1 text-lg p-2"
+    />
+  </div>
+
  
 <!-- Submit Button at Bottom -->
 <div class="flex justify-content-center mt-4 gap-4">
@@ -146,7 +167,11 @@
 import { ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
 
+const photoData = ref('')
+
+const jwellPhotoData = ref('')
 const toast = useToast() 
+
 // Bill data model
 const billData = ref({
   id: '',
@@ -161,6 +186,30 @@ const billData = ref({
   dueDate: '',
   remarks: ''
 })
+
+const handlePhotoUpload = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      photoData.value = e.target.result // This becomes base64 string
+    }
+    reader.readAsDataURL(file)
+  }
+}
+
+const handlePhotoUploadOfjwell = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      jwellPhotoData.value = e.target.result // This becomes base64 string
+    }
+    reader.readAsDataURL(file)
+  }
+}
+
+
 
 // Interest rate options
 const interestRates = ref([
@@ -285,14 +334,26 @@ const openBillInNewTab = () => {
     <body>
       <div class="bill-content">
         <div class="header">
-          <h1 style="font-size: 28px; margin: 0;">TPN BUSINESS</h1>
-          <h2 style="font-size: 20px; margin: 10px 0 0 0;">Loan Bill Receipt</h2>
+          <h1 style="font-size: 28px; margin: 0;">TPN BANKERS PRIVATE LIMITED</h1>
+          <h2 style="font-size: 20px; margin: 10px 0 0 0;">Bill Receipt</h2>
         </div>
-        
+
+<div class="photo-section" style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+  <div style="text-align: left;">
+    ${photoData.value ? `<img src="${photoData.value}" style="max-width: 200px; max-height: 250px;" />` : 'No Photo'}
+    <p>Customer Photo</p>
+  </div>
+  <div style="text-align: right;">
+    ${jwellPhotoData.value ? `<img src="${jwellPhotoData.value}" style="max-width: 200px; max-height: 250px;" />` : 'No Photo'}
+    <p>Jwell Photo</p>
+  </div>
+</div>
+    
+
         <div class="grid">
           <div>
             <p><strong>Bill ID:</strong> ${billData.value.id}</p>
-            <p><strong>Customer ID:</strong> ${billData.value.customerId}</p>
+            
             <p><strong>Name:</strong> ${billData.value.name}</p>
             <p><strong>Phone:</strong> ${billData.value.phone}</p>
           </div>
@@ -315,16 +376,20 @@ const openBillInNewTab = () => {
           <p>• Loan must be repaid by due date</p>
           <p>• Interest will be charged as per agreed rate</p>
           <p>• Late payments may incur additional charges</p>
+          <p>• Failure to redeem grants TPN BUSINESS right to sell jewelry</p>
+          <p>• Jewelry valued at current market rates - valuation final</p> 
         </div>
         
         <div class="signature-section">
           <div>
-            <p>________________</p>
-            <p>Customer Signature</p>
-          </div>
-          <div>
+            <br></br>
             <p>________________</p>
             <p>Authorized Signature</p>
+          </div>
+          <div style="text-align: right;">
+            <p>I hereby declare i have completely read and understood the terms and condition</p>
+            <p>________________</p>
+            <p>Customer Signature</p>
           </div>
         </div>
       </div>
