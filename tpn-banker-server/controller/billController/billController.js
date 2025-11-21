@@ -1,11 +1,14 @@
 const User = require('../../models/User');
 
-exports.login = async(req, res) => {
+
+exports.saveBill = async(req, res) => {
 
   const username = req.body.username;
   const password  = req.body.password;
+
+  
   const db = req.app.get('db');
- 
+
     try {
     const user = await new Promise((resolve, reject) => {
 

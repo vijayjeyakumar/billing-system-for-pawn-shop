@@ -19,7 +19,7 @@
 
           <Column field="id" headerStyle="width: 100px" bodyStyle="width: 80px">
             <template #header>
-              <span class="font-bold">ID</span>
+              <span class="font-bold">BILL ID</span>
             </template>
           </Column>
 

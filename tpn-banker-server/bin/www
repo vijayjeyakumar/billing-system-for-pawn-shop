@@ -6,6 +6,15 @@ app.set('port', port);
 
 //start listening to the port
 var server = http.createServer(app);
+
+// Add this line:
+server.on('listening', () => {
+  var addr = server.address();
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  console.log('🚀 Server started on ' + bind);
+  console.log('📡 Access your app at: http://localhost:' + port);
+});
+
 server.listen(port);
 
 function normalizePort(val) {
