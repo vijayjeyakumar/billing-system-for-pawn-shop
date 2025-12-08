@@ -5,7 +5,6 @@
       <!-- Header -->
       <div class="login-header">
            <img src="/src/assets/icon2.png" alt="My Logo" class="my-logo-class" />
-      
         <h1>Welcome Back</h1>
         <p>Sign in to continue</p>
       </div>
@@ -17,15 +16,7 @@
         <div class="field">
           <label for="email" class="block text-100 font-medium mb-2">Email Address</label>
           <span class="p-input-icon-left w-full">
-
-            <InputText
-              id="email"
-              v-model="email"
-              type="email"
-              placeholder="Enter your email Here"
-              class="w-full p-inputtext-lg"
-              required
-            />
+            <InputText id="email" v-model="email" type="email" placeholder="Enter your email Here" class="w-full p-inputtext-lg" required/>
           </span>
         </div>
 
@@ -33,23 +24,12 @@
         <div class="field">
           <label for="password" class="block text-100 font-medium mb-2">Password</label>
           <span class="p-input-icon-left w-full">
-            <Password
-              id="password"
-              v-model="password"
-              placeholder="Enter your password Here"
-              :feedback="false"
-              class="w-full"
-              inputClass="w-full p-inputtext-lg"
-              required
-            />
+            <Password id="password" v-model="password" placeholder="Enter your password Here" :feedback="false" class="w-full" inputClass="w-full p-inputtext-lg" required/>
           </span>
         </div>
 
       <!-- Submit Button -->
-      
-      <PrimeButton label="Sign In" type="submit" severity="primary"  raised size="large" class="w-full"  />
-
-
+      <PrimeButton label="Sign In" type="submit" :loading="loading" :disabled="loading" severity="primary" @click="handleSubmit()" raised size="large" class="w-full"  />
       </form>
     </div>
   </div>
@@ -62,34 +42,46 @@ import Password from 'primevue/password';
 import PrimeButton from 'primevue/button';
 import { useToast } from 'primevue/usetoast';
 import { useRouter } from 'vue-router';
+// Add at top of your LoginUserPage.vue
+import axios from 'axios';
 
 // Reactive state
 const toast = useToast();
 const router = useRouter();
 const email = ref('');
 const password = ref(''); 
+const loading = ref(false);
 
 onMounted(() => {
   console.log('Login page mounted');
 });
 
-// Methods
-const handleSubmit = () => {
+const handleSubmit = async () => {
+
+  if (loading.value) return;
+  loading.value = true;
+
   console.log('Login attempt');
+    try {
 
-
-  //Here call API for validation put inside try catch
-
-  // Show alert instead of toast
-  toast.add({
-    severity: 'success',
-    detail: 'Login Success',
-    life: 5000 
-  });
-
-  //Navigate to customer list page
-  router.push('/customer-list-page');
+          const response = await axios.post('http://localhost:3005/api/login', {
+            username: email.value,
+            password: password.value
+          });
+      
+        console.log('Login successful:', response.data);
+        toast.add({severity: 'success',  detail: 'Login Success',  life: 5000  });
+        router.push('/customer-list-page');
+      
+      } catch (err) { 
+          toast.add({ severity: 'error',  summary: 'Login Failed',  detail: data.message || 'Invalid credentials',  life: 3000  })
+          console.error('Full error:', err);
+          console.error('Error message:', err.message);
+      } finally {
+          console.log('Finally Reached successful:');
+      }
 };
+ 
 </script>
 
 <style scoped>

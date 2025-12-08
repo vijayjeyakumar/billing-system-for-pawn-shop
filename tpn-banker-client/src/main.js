@@ -8,6 +8,11 @@ import router from './router'
 import { definePreset } from '@primevue/themes'
 import Aura from '@primeuix/themes/aura'
 import 'primeicons/primeicons.css'
+import axios from 'axios';
+
+// Configure once, use everywhere 
+axios.defaults.baseURL = 'http://localhost:3005/';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 //import necessary primeVue components
 import Column from 'primevue/column'

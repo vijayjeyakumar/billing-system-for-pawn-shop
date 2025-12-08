@@ -7,7 +7,8 @@ exports.login = async(req, res) => {
   const db = req.app.get('db');
  
     try {
-    const user = await new Promise((resolve, reject) => {
+      console.log("##START LOGIN PROCESS##");
+      const user = await new Promise((resolve, reject) => {
 
         db.get(`SELECT * FROM user_details WHERE email  = ? AND password  = ?;`,[username, password], (err, row) => {
               if (err) {
