@@ -1,256 +1,139 @@
 <template>
-  <div class="surface-ground min-h-screen flex justify-content-center align-items-start p-3" style="padding-top: 80px; padding-left:180px; ">
+  <div class="surface-ground min-h-screen flex justify-content-center align-items-start p-3"
+    style="padding-top: 80px; padding-left:180px; ">
     <Card class="w-full max-w-4xl p-4 shadow-3">
       <template #title>
         <h1 class="text-3xl font-bold text-center">Generate Bill</h1>
       </template>
-      
+
       <template #content>
         <form @submit.prevent="submitBill">
           <div class="flex flex-column gap-4 p-fluid">
-            <!-- Row 1 -->
+            
             <div class="field flex align-items-center gap-4">
               <label for="id" class="font-bold text-lg w-6">Bill ID *</label>
-              <InputText 
-                id="id" 
-                v-model="billData.id" 
-                class="flex-1 text-lg p-3" 
-                placeholder="Enter Bill ID"
-              />
+              <InputText id="id" v-model="billData.id" class="flex-1 text-lg p-3" placeholder="Enter Bill ID" />
             </div>
-
-       
-            <!-- Row 2 -->
+         
             <div class="field flex align-items-center gap-4">
               <label for="name" class="font-bold text-lg w-6">Customer Name *</label>
-              <InputText 
-                id="name" 
-                v-model="billData.name" 
-                class="flex-1 text-lg p-3" 
-                placeholder="Enter Customer Name"
-              />
+              <InputText id="name" v-model="billData.name" class="flex-1 text-lg p-3"
+                placeholder="Enter Customer Name" />
             </div>
 
             <div class="field flex align-items-center gap-4">
               <label for="phone" class="font-bold text-lg w-6">Phone Number *</label>
-              <InputText 
-                id="phone" 
-                v-model="billData.phone" 
-                class="flex-1 text-lg p-3" 
-                placeholder="Enter Phone Number"
-              />
+              <InputText id="phone" v-model="billData.phone" class="flex-1 text-lg p-3"
+                placeholder="Enter Phone Number" />
             </div>
 
-            <!-- Row 3 -->
             <div class="field flex align-items-center gap-4">
               <label for="aadhar" class="font-bold text-lg w-6">Aadhar Number *</label>
-              <InputText 
-                id="aadhar" 
-                v-model="billData.aadhar" 
-                class="flex-1 text-lg p-3" 
-                placeholder="Enter Aadhar Number"
-              />
+              <InputText id="aadhar" v-model="billData.aadhar" class="flex-1 text-lg p-3"
+                placeholder="Enter Aadhar Number" />
             </div>
 
             <div class="field flex align-items-center gap-4">
               <label for="interest" class="font-bold text-lg w-6">Interest Rate *</label>
-              <Dropdown 
-                id="interest"
-                v-model="billData.interest" 
-                :options="interestRates" 
-                optionLabel="label"
-                optionValue="value"
-                placeholder="Select Interest Rate"
-                class="flex-1 text-lg" 
-              />
+              <Dropdown id="interest" v-model="billData.interest" :options="interestRates" optionLabel="label"
+                optionValue="value" placeholder="Select Interest Rate" class="flex-1 text-lg" />
             </div>
 
-            <!-- Row 4 -->
             <div class="field flex align-items-center gap-4">
               <label for="loanAmount" class="font-bold text-lg w-6">Loan Amount *</label>
-              <InputText 
-                id="loanAmount" 
-                v-model="billData.loanAmount" 
-                class="flex-1 text-lg p-3" 
-                placeholder="Enter Loan Amount"
-              />
+              <InputText id="loanAmount" v-model="billData.loanAmount" class="flex-1 text-lg p-3"
+                placeholder="Enter Loan Amount" />
             </div>
 
             <div class="field flex align-items-center gap-4">
               <label for="processedDate" class="font-bold text-lg w-6">Processed Date *</label>
-              <Calendar 
-                id="processedDate"
-                v-model="billData.processedDate" 
-                dateFormat="yy-mm-dd"
-                showIcon
-                class="flex-1"
-              />
+              <Calendar id="processedDate" v-model="billData.processedDate" dateFormat="yy-mm-dd" showIcon
+                class="flex-1" />
             </div>
 
-            <!-- Row 5 -->
             <div class="field flex align-items-center gap-4">
               <label for="processedBy" class="font-bold text-lg w-6">Processed By *</label>
-              <InputText 
-                id="processedBy" 
-                v-model="billData.processedBy" 
-                class="flex-1 text-lg p-3" 
-                placeholder="Enter Processed By"
-              />
+              <InputText id="processedBy" v-model="billData.processedBy" class="flex-1 text-lg p-3"
+                placeholder="Enter Processed By" />
             </div>
 
             <div class="field flex align-items-center gap-4">
               <label for="dueDate" class="font-bold text-lg w-6">Due Date *</label>
-              <Calendar 
-                id="dueDate"
-                v-model="billData.dueDate" 
-                dateFormat="yy-mm-dd"
-                showIcon
-                class="flex-1 ml-3"
-            appendTo="body"
-              />
+              <Calendar id="dueDate" v-model="billData.dueDate" dateFormat="yy-mm-dd" showIcon class="flex-1 ml-3"
+                appendTo="body" />
             </div>
 
             <div class="field flex align-items-center gap-4">
-    <label for="photo" class="font-bold text-lg w-6">Customer Photo</label>
-    <input 
-      type="file" 
-      id="photo"
-      accept="image/*"
-      @change="handlePhotoUpload"
-      class="flex-1 text-lg p-2"
-    />
-  </div>
-          <div class="field flex align-items-center gap-4">
-    <label for="photo" class="font-bold text-lg w-6">Jwell Photo</label>
-    <input 
-      type="file" 
-      id="photo"
-      accept="image/*"
-      @change="handlePhotoUploadOfjwell"
-      class="flex-1 text-lg p-2"
-    />
-  </div>
+              <label for="photo" class="font-bold text-lg w-6">Customer Photo</label>
+              <input type="file" id="photo" accept="image/*" @change="handlePhotoUpload" class="flex-1 text-lg p-2" />
+            </div>
+            <div class="field flex align-items-center gap-4">
+              <label for="photo" class="font-bold text-lg w-6">Jwell Photo</label>
+              <input type="file" id="photo" accept="image/*" @change="handlePhotoUploadOfjwell"
+                class="flex-1 text-lg p-2" />
+            </div>
 
- 
-<!-- Submit Button at Bottom -->
-<div class="flex justify-content-center mt-4 gap-4">
-  <Button 
-    label="GENERATE BILL" 
-    icon="pi pi-file-pdf" 
-    class="p-button-info text-lg w-auto" 
-    style="background-color: #6366f1 !important; border-color: #93c5fd !important; margin-right: 2rem;"
-    type="button"
-    size="large"
-    @click="generateBill"
-  />
-  <Button 
-    label="SAVE" 
-    icon="pi pi-save" 
-    class="p-button-info text-lg w-auto" 
-    style="background-color: #6366f1 !important; border-color: #93c5fd !important;"
-    type="submit"
-    size="large"
-  />
-</div>
+            <div class="flex justify-content-center mt-4 gap-4">
+              <Button label="GENERATE BILL" icon="pi pi-file-pdf" class="p-button-info text-lg w-auto"
+                style="background-color: #6366f1 !important; border-color: #93c5fd !important; margin-right: 2rem;"
+                type="button" size="large" @click="generateBill" />
+              <Button label="SAVE"  icon="pi pi-save" class="p-button-info text-lg w-auto"
+                style="background-color: #6366f1 !important; border-color: #93c5fd !important;" type="submit"
+                size="large" />
+            </div>
 
           </div>
         </form>
       </template>
     </Card>
-
-
-
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
 import { useToast } from 'primevue/usetoast'
+import { useRouter } from 'vue-router'
+import axios from 'axios';
 
+const router = useRouter();
 const photoData = ref('')
-
 const jwellPhotoData = ref('')
-const toast = useToast() 
+const toast = useToast()
+const billData = ref({})
 
-// Bill data model
-const billData = ref({
-  id: '',
-  customerId: '',
-  name: '',
-  phone: '',
-  aadhar: '',
-  interest: '',
-  loanAmount: '',
-  processedDate: '',
-  processedBy: '',
-  dueDate: '',
-  remarks: ''
-})
+const submitBill = async () => {
 
-const handlePhotoUpload = (event) => {
-  const file = event.target.files[0]
-  if (file) {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      photoData.value = e.target.result // This becomes base64 string
-    }
-    reader.readAsDataURL(file)
-  }
-}
-
-const handlePhotoUploadOfjwell = (event) => {
-  const file = event.target.files[0]
-  if (file) {
-    const reader = new FileReader()
-    reader.onload = (e) => {
-      jwellPhotoData.value = e.target.result // This becomes base64 string
-    }
-    reader.readAsDataURL(file)
-  }
-}
-
-
-
-// Interest rate options
-const interestRates = ref([
-  { label: '12%', value: '12%' },
-  { label: '18%', value: '18%' }
-])
-
-// Submit bill function
-const submitBill = () => {
-  // Validate required fields
-  const requiredFields = ['id', 'customerId', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'processedDate', 'processedBy', 'dueDate']
+  const requiredFields = ['id', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'processedDate', 'processedBy', 'dueDate']
   const missingFields = requiredFields.filter(field => !billData.value[field])
   
-//   if (missingFields.length > 0) {
-//     toast.add({
-//       severity: 'error',
-//       summary: 'Validation Error',
-//       detail: 'Please fill all required fields',
-//       life: 3000
-//     })
-//     return
-//   }
+  if (missingFields.length > 0) {
+      console.log("missing fields are as follows ", missingFields); 
+      toast.add({ severity: 'error',   summary: 'Validation Error',   detail: 'Please fill all required fields', life: 3000 })
+      return
+    } 
+  console.log('Bill Data:', JSON.stringify(billData.value));
 
-  // Here you would typically send the data to your backend API
-  console.log('Bill Data:', billData.value)
-  
-  toast.add({
-    severity: 'success',
-    summary: 'Bill Generated',
-    detail: 'Bill has been generated successfully',
-    life: 3000
-  }) 
-  // Reset form after submission (optional)
-  // resetForm()
+   try {
+        const response = await axios.post('/api/generateBill', billData.value);
+        console.log('Request Submitted successful:', response.data);
+        toast.add({ severity: 'success',   summary: 'Bill Generated', detail: 'Bill has been generated successfully', life: 3000  })
+        resetForm();
+        router.push('/customer-list-page');
+      
+      } catch (err) { 
+          toast.add({ severity: 'error',  summary: 'Login Failed',  detail: data.message || 'Invalid credentials',  life: 3000  })
+          console.error('Full error:', err);
+          console.error('Error message:', err.message);
+      } finally {
+          console.log('Finally Reached successful:');
+      }
+
 }
-
-// Optional: Reset form function
+ 
 const resetForm = () => {
+  console.log("inside reset form ");
   billData.value = {
     id: '',
-    
     name: '',
     phone: '',
     aadhar: '',
@@ -263,25 +146,21 @@ const resetForm = () => {
   }
 }
 
-//for prinitng bill 
 const generateBill = () => {
   // Validate required fields
-  const requiredFields = ['id', 'customerId', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'processedDate', 'processedBy', 'dueDate']
+  const requiredFields = ['id', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'processedDate', 'processedBy', 'dueDate']
   const missingFields = requiredFields.filter(field => !billData.value[field])
-  
-//   if (missingFields.length > 0) {
-//     toast.add({
-//       severity: 'error',
-//       summary: 'Validation Error',
-//       detail: 'Please fill all required fields',
-//       life: 3000
-//     })
-//     return
-//   }
+  if (missingFields.length > 0) {
+      toast.add({ severity: 'error',   summary: 'Validation Error',   detail: 'Please fill all required fields', life: 3000 })
+      return
+    }
 
-  // Open bill in new tab
-  openBillInNewTab()
+  submitBill();
+  openBillInNewTab();
 }
+
+
+
 
 const openBillInNewTab = () => {
   const billHTML = `
@@ -338,17 +217,17 @@ const openBillInNewTab = () => {
           <h2 style="font-size: 20px; margin: 10px 0 0 0;">Bill Receipt</h2>
         </div>
 
-<div class="photo-section" style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
-  <div style="text-align: left;">
-    ${photoData.value ? `<img src="${photoData.value}" style="max-width: 200px; max-height: 250px;" />` : 'No Photo'}
-    <p>Customer Photo</p>
-  </div>
-  <div style="text-align: right;">
-    ${jwellPhotoData.value ? `<img src="${jwellPhotoData.value}" style="max-width: 200px; max-height: 250px;" />` : 'No Photo'}
-    <p>Jwell Photo</p>
-  </div>
-</div>
-    
+      <div class="photo-section" style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+        <div style="text-align: left;">
+          ${photoData.value ? `<img src="${photoData.value}" style="max-width: 200px; max-height: 250px;" />` : 'No Photo'}
+          <p>Customer Photo</p>
+        </div>
+        <div style="text-align: right;">
+          ${jwellPhotoData.value ? `<img src="${jwellPhotoData.value}" style="max-width: 200px; max-height: 250px;" />` : 'No Photo'}
+          <p>Jwell Photo</p>
+        </div>
+      </div>
+          
 
         <div class="grid">
           <div>
@@ -396,49 +275,82 @@ const openBillInNewTab = () => {
     </body>
     </html>
   `
-
   const printWindow = window.open('', '_blank')
   printWindow.document.write(billHTML)
   printWindow.document.close()
   printWindow.focus()
 }
- 
+
+const handlePhotoUpload = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      photoData.value = e.target.result // This becomes base64 string
+    }
+    reader.readAsDataURL(file)
+  }
+}
+
+const handlePhotoUploadOfjwell = (event) => {
+  const file = event.target.files[0]
+  if (file) {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      jwellPhotoData.value = e.target.result // This becomes base64 string
+    }
+    reader.readAsDataURL(file)
+  }
+}
+
+const interestRates = ref([
+  { label: '12%', value: '12%' },
+  { label: '18%', value: '18%' }
+])
+
 </script>
 
 <style scoped>
 .field {
   margin-bottom: 2rem;
-  margin-left:60px;
+  margin-left: 60px;
 }
 
 :deep(.p-inputtext) {
-  margin-left: 60px !important; /* Add this line */
+  margin-left: 60px !important;
+  /* Add this line */
   font-size: 1.1rem !important;
   padding: 0.75rem !important;
   border: 2px solid #e5e7eb !important;
   border-radius: 8px !important;
-   
-  width: calc(100% - 60px) !important; /* Adjust width to account for margin */
+
+  width: calc(100% - 60px) !important;
+  /* Adjust width to account for margin */
 }
 
 :deep(.p-dropdown) {
-  margin-left: 60px !important; /* Add this */
-  width: calc(100% - 60px) !important; /* Add this */
+  margin-left: 60px !important;
+  /* Add this */
+  width: calc(100% - 60px) !important;
+  /* Add this */
   font-size: 1.1rem !important;
   border: 2px solid #e5e7eb !important;
   border-radius: 8px !important;
-  
+
 }
 
 :deep(.p-calendar) {
-  margin-left: 60px !important; /* Add this */
-  width: calc(100% - 60px) !important; /* Add this */
+  margin-left: 60px !important;
+  /* Add this */
+  width: calc(100% - 60px) !important;
+  /* Add this */
 }
+
 :deep(.p-inputtext:focus) {
   border-color: #3b82f6 !important;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
 }
- 
+
 
 :deep(.p-button) {
   font-size: 1.2rem !important;
@@ -460,5 +372,4 @@ const openBillInNewTab = () => {
     padding: 20px;
   }
 }
-
 </style>

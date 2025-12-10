@@ -1,9 +1,18 @@
 <template>
-  <div class="surface-ground min-h-screen flex justify-content-center align-items-start p-3"
-    style="padding-top: 130px; padding-left: 65px; padding-right: 65px;">
-    <Card class="w-full p-4 shadow-3 mx-auto" style="max-width: 95vw;">
+  <!-- <div class="surface-ground min-h-screen flex justify-content-center align-items-start p-3"
+    style="padding-top: 130px; padding-left: 1px; padding-right: 65px;">
+    <Card class="w-full p-4 shadow-3 mx-auto" style="max-width: 95vw;"> -->
+
+      <div class="surface-ground min-h-screen flex justify-content-center align-items-start p-3"
+    style="padding-top: 130px; padding-right: 65px;">
+    <div class="w-full flex justify-content-center">  <!-- Add this wrapper -->
+      <Card class="p-4 shadow-3" style="width: 100%; max-width: 95vw;">
+    
       <template #content>
-        <DataTable :value="customerList" :filters="filters" filterDisplay="menu" scrollable class="text-lg w-full">
+        <DataTable :value="customerList" :filters="filters" filterDisplay="menu" scrollable class="text-lg w-full"
+         :paginator="true" :rows="25" :rowsPerPageOptions="[5, 10, 25, 50, 100]"
+          paginatorTemplate="PrevPageLink PageLinks NextPageLink RowsPerPageDropdown">
+
           <template #header>
             <div class="flex justify-content-between align-items-center mb-3">
               <div class="flex align-items-center gap-2">
@@ -21,12 +30,19 @@
               <span class="font-bold">BILL ID</span>
             </template>
           </Column>
+ 
 
-          <Column field="CUSTOMER_ID" headerStyle="width: 250px" bodyStyle="width: 150px">
-            <template #header>
-              <span class="font-bold">CUSTOMER ID</span>
-            </template>
-          </Column>
+<Column field="CUSTOMER_ID" headerStyle="width: 250px" bodyStyle="width: 150px">
+    <template #header>
+        <span class="font-bold">CUSTOMER ID</span>
+    </template>
+    <template #body="slotProps">
+        <a href="#" @click.prevent="handleCustomerClick(slotProps.data.CUSTOMER_ID)" class="text-blue-500 hover:text-blue-700 underline cursor-pointer">
+            {{ slotProps.data.CUSTOMER_ID }}
+        </a>
+    </template>
+</Column>
+
 
           <Column field="NAME" headerStyle="width: 150px" bodyStyle="width: 120px">
             <template #header>
@@ -79,12 +95,15 @@
       </template>
     </Card>
   </div>
+      </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const filters = ref({
   global: { value: null, matchMode: 'contains' }
 });
@@ -110,6 +129,15 @@ onMounted(async () => {
   }
 
 });
+
+const handleCustomerClick = (id) => {
+  console.log('Clicked:', id);
+   router.push({ 
+        name: 'CustomerDetails', 
+        params: { id: id } 
+    });
+  //router.push(`/customer-details-page/${id}`);
+};
 
 </script>
 
@@ -157,18 +185,16 @@ onMounted(async () => {
   padding: 1rem 0.75rem !important;
 }
 
-/* Force table to be centered */
-:deep(.p-datatable .p-datatable-header) {
-  text-align: center !important;
+ 
+ 
+/* Add these instead: */
+:deep(.p-datatable-table) {
+  margin: 0 auto !important;
 }
 
-/* Make sure columns distribute evenly */
-:deep(.p-column-header-content) {
-  justify-content: center !important;
-}
-
-:deep(.p-datatable-tbody>tr>td) {
-  text-align: center !important;
+:deep(.p-datatable) {
+  display: flex !important;
+  flex-direction: column !important;
 }
 
 /* Responsive adjustments */
@@ -209,4 +235,47 @@ onMounted(async () => {
     padding: 0.75rem 0.5rem !important;
   }
 }
+
+:deep(.p-paginator) {
+  padding: 1.5rem !important;
+  font-size: 1.2rem !important;
+}
+
+:deep(.p-paginator .p-paginator-pages .p-paginator-page) {
+  min-width: 3rem !important;
+  height: 3rem !important;
+  font-size: 1.2rem !important;
+  margin: 0 0.25rem !important;
+}
+
+:deep(.p-paginator .p-paginator-first,
+       .p-paginator .p-paginator-prev,
+       .p-paginator .p-paginator-next,
+       .p-paginator .p-paginator-last) {
+  min-width: 3rem !important;
+  height: 3rem !important;
+  font-size: 1.2rem !important;
+}
+
+:deep(.p-paginator .p-dropdown) {
+  height: 3rem !important;
+  min-width: 6rem !important;
+}
+
+:deep(.p-paginator .p-dropdown .p-dropdown-label) {
+  font-size: 1.2rem !important;
+  padding: 0.75rem 1rem !important;
+}
+
+:deep(.p-paginator .p-dropdown-trigger) {
+  width: 3rem !important;
+}
+
+/* Make RowsPerPageDropdown text bigger */
+:deep(.p-paginator .p-dropdown-panel .p-dropdown-items .p-dropdown-item) {
+  font-size: 1.1rem !important;
+  padding: 0.75rem 1rem !important;
+}
+
+
 </style>

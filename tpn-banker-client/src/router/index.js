@@ -3,8 +3,7 @@ import LoginUser from '../views/LoginUserPage.vue'
 import customerListPage from '../views/CustomerListPage.vue'
 import CustomerDetailsPage from '@/views/CustomerDetailsPage.vue' 
 import GenerateBillPage  from '@/views/GenerateBillPage.vue'
-
-
+ 
 
 const routes = [
   {
@@ -20,12 +19,14 @@ const routes = [
    {
       path: '/customer-list-page',
       component: customerListPage,
-      props: true,
+      
       meta: {title: "Customer List"}
     },
     {
-      path: '/customer-details-page',
+      path: `/customer-details-page/:id`,
+       name: 'CustomerDetails', 
       component: CustomerDetailsPage,
+      props: true,
       meta: {title: "Customer Details Page"}
     },
     {

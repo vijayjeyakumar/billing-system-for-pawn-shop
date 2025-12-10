@@ -13,6 +13,7 @@ exports.login = async(req, res) => {
         db.get(`SELECT * FROM user_details WHERE email  = ? AND password  = ?;`,[username, password], (err, row) => {
               if (err) {
                 reject(err);
+                console.log("The following error occured", err);
               } else {
                 resolve(row);
               }

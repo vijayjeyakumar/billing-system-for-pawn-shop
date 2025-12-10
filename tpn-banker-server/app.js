@@ -2,6 +2,7 @@
 var express = require('express');
 var usersRouter = require('./routes/users'); 
 var customerRouter = require('./routes/customerData');
+var billRounter = require('./routes/bill')
 
 var app = express();
 const cors = require('cors');
@@ -21,6 +22,8 @@ app.set('db', db);
 //Routes
 app.use('/api', usersRouter);
 app.use('/api', customerRouter);
+app.use('/api', billRounter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

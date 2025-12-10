@@ -10,6 +10,7 @@ exports.fetchCustomerList = async(req, res) => {
         db.all(`SELECT * FROM customer_details;`, (err, row) => {
               if (err) {
                 reject(err);
+                console.log("The following error occured", err);
               } else {
                 resolve(row);
               }
@@ -34,7 +35,7 @@ exports.fetchCustomerDetails = async(req, res) => {
     try {
     const customer_list = await new Promise((resolve, reject) => {
 
-        db.all(`SELECT * FROM customer_details;`, (err, row) => {
+        db.get(`SELECT * FROM customer_details where CUSTOMER_ID =? ;`,[customerId], (err, row) => {
               if (err) {
                 reject(err);
               } else {
