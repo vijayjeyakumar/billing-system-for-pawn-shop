@@ -33,6 +33,13 @@
                 placeholder="Enter Aadhar Number" />
             </div>
 
+
+            <div class="field flex align-items-center gap-4">
+              <label for="email" class="font-bold text-lg w-6">Email</label>
+              <InputText id="email" v-model="billData.email" class="flex-1 text-lg p-3"
+                placeholder="Enter email ID" />
+            </div>
+
             <div class="field flex align-items-center gap-4">
               <label for="interest" class="font-bold text-lg w-6">Interest Rate *</label>
               <Dropdown id="interest" v-model="billData.interest" :options="interestRates" optionLabel="label"
@@ -137,6 +144,7 @@ const resetForm = () => {
     name: '',
     phone: '',
     aadhar: '',
+    email: '',
     interest: '',
     loanAmount: '',
     processedDate: '',
@@ -232,9 +240,9 @@ const openBillInNewTab = () => {
         <div class="grid">
           <div>
             <p><strong>Bill ID:</strong> ${billData.value.id}</p>
-            
             <p><strong>Name:</strong> ${billData.value.name}</p>
             <p><strong>Phone:</strong> ${billData.value.phone}</p>
+            <p><strong>Email:</strong> ${billData.value.email}</p>
           </div>
           <div>
             <p><strong>Aadhar:</strong> ${billData.value.aadhar}</p>

@@ -1,34 +1,44 @@
-const User = require('../../models/User');
-
-
 exports.saveBill = async(req, res) => {
 
-  const username = req.body.username;
-  const password  = req.body.password;
-
-  
+  const billDetails = req.body; 
+  console.log("Bill details send from UI is ", billDetails);
   const db = req.app.get('db');
 
-    try {
-    const user = await new Promise((resolve, reject) => {
+    try { 
 
-        db.get(`SELECT * FROM user_details WHERE email  = ? AND password  = ?;`,[username, password], (err, row) => {
-              if (err) {
-                reject(err);
-              } else {
-                resolve(row);
-              }
-        });
-      });
+      const billId = billDetails.id;
+      const name = billDetails.name;
+      const email = billDetails.email ? billDetails.email : "Nil";
+      const phoneNo = billDetails.phone;
+      const aadhar = billDetails.aadhar;
+      const loanAmt = billDetails.loanAmount;
+      const interest = billDetails.interest;
+      const processedBy = billDetails.processedBy;
+      const processedDate = new Date(billDetails.processedDate).toISOString().split('T')[0];
+      const dueDate = new Date(billDetails.dueDate).toISOString().split('T')[0];
       
-      if (user) {
-        res.status(200).json({ message: `Welcome back, ${username}` });
-        console.log("user log in success. Logged in user is ", username)
-      } else {
-        res.status(401).json({ message: 'Invalid credentials' });
-        console.log("invalid credential passed by user", username);
-      }
+      const insertQuery = `INSERT INTO customer_details (BILL_ID,NAME,PHONE_NO,EMAIL_ID,AADHAR,
+                              INTEREST,LOAN_AMOUNT,PROCESSED_BY,PROCESSED_DATE,DUE_DATE)
+                              VALUES (?,?,?,?,?,?,?,?,?,?);`;
 
+      console.log("insert query is as follows", insertQuery);
+      const runInsertQuery = (query, params) => {
+      return new Promise((resolve, reject) => {
+        db.run(query, params, function(err) {
+          if (err) reject(err);
+          else resolve({ id: this.lastID });
+          });
+        });
+      };
+
+ 
+    const result = await runInsertQuery(insertQuery, [billId, name, phoneNo, email , aadhar, interest, loanAmt, processedBy, processedDate ,dueDate]);
+    
+    res.json({
+      success: true,
+      message: 'Customer added successfully',
+    });
+     
   } catch (error) {
     res.status(500).json({ error: 'Database error' });
   }

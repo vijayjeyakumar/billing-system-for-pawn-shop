@@ -1,5 +1,3 @@
-const User = require('../../models/User');
-
 exports.fetchCustomerList = async(req, res) => {
   const db = req.app.get('db');
   console.log("inside customer controller Page");
@@ -7,7 +5,7 @@ exports.fetchCustomerList = async(req, res) => {
     try {
     const customer_list = await new Promise((resolve, reject) => {
 
-        db.all(`SELECT * FROM customer_details;`, (err, row) => {
+        db.all(`SELECT * FROM customer_details ORDER BY PROCESSED_DATE DESC;`, (err, row) => {
               if (err) {
                 reject(err);
                 console.log("The following error occured", err);
