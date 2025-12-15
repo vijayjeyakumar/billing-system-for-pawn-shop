@@ -20,8 +20,7 @@ exports.saveBill = async(req, res) => {
       const insertQuery = `INSERT INTO customer_details (BILL_ID,NAME,PHONE_NO,EMAIL_ID,AADHAR,
                               INTEREST,LOAN_AMOUNT,PROCESSED_BY,PROCESSED_DATE,DUE_DATE)
                               VALUES (?,?,?,?,?,?,?,?,?,?);`;
-
-      console.log("insert query is as follows", insertQuery);
+ 
       const runInsertQuery = (query, params) => {
       return new Promise((resolve, reject) => {
         db.run(query, params, function(err) {
@@ -34,6 +33,7 @@ exports.saveBill = async(req, res) => {
  
     const result = await runInsertQuery(insertQuery, [billId, name, phoneNo, email , aadhar, interest, loanAmt, processedBy, processedDate ,dueDate]);
     
+    console.log("Ending Bill controller. response from db is ", result);
     res.json({
       success: true,
       message: 'Customer added successfully',

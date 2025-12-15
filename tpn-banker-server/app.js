@@ -36,7 +36,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// error handler
 // Last middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);

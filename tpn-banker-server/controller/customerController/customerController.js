@@ -15,7 +15,7 @@ exports.fetchCustomerList = async(req, res) => {
           });
         });
 
-       console.log("Response has been sent to client ", customer_list)
+       console.log("Response has been sent to client with customer details. End of Customer Controller")
        return res.status(200).json(customer_list);
   } catch (error) {
        return res.status(500).json({ error: 'Database error' });
