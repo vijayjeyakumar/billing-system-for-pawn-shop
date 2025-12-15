@@ -31,6 +31,13 @@
       <!-- Submit Button -->
       <PrimeButton label="Sign In" type="submit" :loading="loading" :disabled="loading" severity="primary" @click="handleSubmit()" raised size="large" class="w-full"  />
       </form>
+       
+        <div class="version-footer">
+        <span>TPN Banker Beta version 1.0</span>
+        <span>  © 2026 TPN Banker. All rights reserved.</span>
+      </div>
+
+
     </div>
   </div>
 </template>
@@ -162,4 +169,15 @@ const handleSubmit = async () => {
 .w-full {
   width: 100%;
 }
+
+.version-footer {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  text-align: right;
+  font-size: 1.4rem;
+  color: #ffffff;
+}
+
+
 </style>
