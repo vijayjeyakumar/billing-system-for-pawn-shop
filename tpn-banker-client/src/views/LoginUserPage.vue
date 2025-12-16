@@ -71,7 +71,7 @@ const handleSubmit = async () => {
   console.log('Login attempt');
     try {
 
-          const response = await axios.post('http://localhost:3005/api/login', {
+          const response = await axios.post('/api/login', {
             username: email.value,
             password: password.value
           });
