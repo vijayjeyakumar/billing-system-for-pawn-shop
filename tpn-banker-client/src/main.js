@@ -10,9 +10,17 @@ import Aura from '@primeuix/themes/aura'
 import 'primeicons/primeicons.css'
 import axios from 'axios';
 
-// Configure once, use everywhere 
-axios.defaults.baseURL = 'http://localhost:3005/';
+// // Configure once, use everywhere 
+// axios.defaults.baseURL = 'http://localhost:3005/';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
+
+// If UI and API on same server
+const protocol = window.location.protocol;
+const host = window.location.hostname;
+const apiPort = 3005;
+
+axios.defaults.baseURL = `${protocol}//${host}:${apiPort}`; 
+console.log("API Base URL:", axios.defaults.baseURL);
 
 //import necessary primeVue components
 import Column from 'primevue/column'
