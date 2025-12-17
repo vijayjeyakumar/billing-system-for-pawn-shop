@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var app = require('../app'); 
 var http = require('http');
-var port = normalizePort(process.env.PORT || '3005');
+var port = normalizePort('3000');
 app.set('port', port);
 
 //start listening to the port

@@ -26,6 +26,10 @@ app.use('/api', usersRouter);
 app.use('/api', customerRouter);
 app.use('/api', billRounter);
 
+app.get('/', (req, res) => {
+  res.json({ message: 'API is working!', timestamp: Date.now() });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
