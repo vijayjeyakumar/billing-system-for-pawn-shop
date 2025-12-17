@@ -6,13 +6,14 @@ var billRounter = require('./routes/bill')
 
 var app = express();
 const cors = require('cors');
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //app.use(cors());
 //var cookieParser = require('cookie-parser');
 
-app.use(cors());
+
 
 
 //set db 
