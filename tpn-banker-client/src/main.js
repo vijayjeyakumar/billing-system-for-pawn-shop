@@ -17,7 +17,7 @@ axios.defaults.headers.common['Content-Type'] = 'application/json';
 // If UI and API on same server
 const protocol = window.location.protocol;
 const host = window.location.hostname;
-const apiPort = 3005;
+const apiPort = 3000;
 
 axios.defaults.baseURL = `${protocol}//${host}:${apiPort}`; 
 console.log("API Base URL:", axios.defaults.baseURL);
