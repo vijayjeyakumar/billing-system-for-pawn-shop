@@ -53,6 +53,12 @@
             </div>
 
             <div class="field flex align-items-center gap-4">
+              <label for="weight" class="font-bold text-lg w-6">Weight *</label>
+              <InputText id="weight" v-model="billData.weight" class="flex-1 text-lg p-3"
+                placeholder="Enter Weight in gram" />
+            </div>
+
+            <div class="field flex align-items-center gap-4">
               <label for="processedDate" class="font-bold text-lg w-6">Processed Date *</label>
               <Calendar id="processedDate" v-model="billData.processedDate" dateFormat="yy-mm-dd" showIcon
                 class="flex-1" />
@@ -92,7 +98,7 @@
           </div>
         </form>
       </template>
-    </Card>
+    </Card>weight
   </div>
 </template>
 
@@ -110,7 +116,7 @@ const billData = ref({})
 
 const submitBill = async () => {
 
-  const requiredFields = ['id', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'processedDate', 'processedBy', 'dueDate']
+  const requiredFields = ['id', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'weight', 'processedDate', 'processedBy', 'dueDate']
   const missingFields = requiredFields.filter(field => !billData.value[field])
   
   if (missingFields.length > 0) {
@@ -147,6 +153,7 @@ const resetForm = () => {
     email: '',
     interest: '',
     loanAmount: '',
+    weight: '',
     processedDate: '',
     processedBy: '',
     dueDate: '',
@@ -156,7 +163,7 @@ const resetForm = () => {
 
 const generateBill = () => {
   // Validate required fields
-  const requiredFields = ['id', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'processedDate', 'processedBy', 'dueDate']
+  const requiredFields = ['id', 'name', 'phone', 'aadhar', 'interest', 'loanAmount', 'weight', 'processedDate', 'processedBy', 'dueDate']
   const missingFields = requiredFields.filter(field => !billData.value[field])
   if (missingFields.length > 0) {
       toast.add({ severity: 'error',   summary: 'Validation Error',   detail: 'Please fill all required fields', life: 3000 })
@@ -255,6 +262,7 @@ const openBillInNewTab = () => {
         <div class="loan-details">
           <h3 style="font-size: 18px; margin-bottom: 10px;">Loan Details</h3>
           <p><strong>Loan Amount:</strong> ${billData.value.loanAmount}</p>
+           <p><strong>Weight:</strong> ${billData.value.weight}</p>
           <p><strong>Interest Rate:</strong> ${billData.value.interest}</p>
         </div>
         

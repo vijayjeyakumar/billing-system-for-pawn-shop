@@ -16,10 +16,11 @@ exports.saveBill = async(req, res) => {
       const processedBy = billDetails.processedBy;
       const processedDate = new Date(billDetails.processedDate).toISOString().split('T')[0];
       const dueDate = new Date(billDetails.dueDate).toISOString().split('T')[0];
+      const weight = billDetails.weight;
       
       const insertQuery = `INSERT INTO customer_details (BILL_ID,NAME,PHONE_NO,EMAIL_ID,AADHAR,
-                              INTEREST,LOAN_AMOUNT,PROCESSED_BY,PROCESSED_DATE,DUE_DATE)
-                              VALUES (?,?,?,?,?,?,?,?,?,?);`;
+                              INTEREST,LOAN_AMOUNT,PROCESSED_BY,PROCESSED_DATE,DUE_DATE, WEIGHT)
+                              VALUES (?,?,?,?,?,?,?,?,?,?, ?);`;
  
       const runInsertQuery = (query, params) => {
       return new Promise((resolve, reject) => {
@@ -31,7 +32,7 @@ exports.saveBill = async(req, res) => {
       };
 
  
-    const result = await runInsertQuery(insertQuery, [billId, name, phoneNo, email , aadhar, interest, loanAmt, processedBy, processedDate ,dueDate]);
+    const result = await runInsertQuery(insertQuery, [billId, name, phoneNo, email , aadhar, interest, loanAmt, processedBy, processedDate ,dueDate, weight]);
     
     console.log("Ending Bill controller. response from db is ", result);
     res.json({
