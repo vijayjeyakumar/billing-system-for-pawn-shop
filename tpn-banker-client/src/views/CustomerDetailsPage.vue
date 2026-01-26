@@ -43,6 +43,10 @@
           <p><strong>Due Date:</strong></p>
           <span>{{ customer.DUE_DATE }}</span>
         </div>
+        <div class="detail-group">
+          <p><strong>Interest Amount $:</strong></p>
+          <span>{{ calculatedInterest }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -51,19 +55,30 @@
 <script setup> 
 
 import { onMounted, ref } from 'vue';
+import { computed } from "vue";
 import { useRoute } from 'vue-router'
 import axios from 'axios';
 const route = useRoute() 
 const customerId = route.params.id; 
- 
- let customer  = ref([]);
-onMounted(async () => {
+var daysDiff = ref(0);
+let customer  = ref([]);
+
+
+
+  onMounted(async () => {
   console.log('CustomerDetailsPage mounted with requested customer id ', customerId);
    try {
     const response = await axios.get(`/api/customer-details-page/${customerId}`);
     customer.value = response.data;
     console.log('Customer Data Fetched Successfully:', customer.value );
- 
+     
+    const currentDate = new Date();
+    const startDate = new Date(customer.value.PROCESSED_DATE);
+
+    //Calculate the difference in time (milliseconds)
+    const timeDiff = currentDate.getTime() - startDate.getTime();
+    daysDiff.value = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    console.log("daysDiff  is ", daysDiff);
 
   } catch (err) {
     console.error('Full error:', err);
@@ -72,6 +87,16 @@ onMounted(async () => {
     console.log('Finally Reached successful:');
   }
   
+});
+
+ 
+const calculatedInterest = computed(() => {
+  if (!customer.value || !daysDiff.value) return 0;
+
+  const loan = Number(customer.value.LOAN_AMOUNT);
+  const interestRate = parseFloat(customer.value.INTEREST);  
+  console.log("iiiiiiiiiiiiiiiiiiiiiiiiiii", loan)
+  return (loan * (interestRate / 100) * daysDiff.value) / 365;
 });
 
 </script>
