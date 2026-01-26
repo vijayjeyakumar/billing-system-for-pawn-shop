@@ -320,8 +320,8 @@ const handlePhotoUploadOfjwell = (event) => {
 }
 
 const interestRates = ref([
-  { label: '12%', value: '12%' },
-  { label: '18%', value: '18%' }
+  { label: '24%', value: '24%' },
+  { label: '28%', value: '28%' }
 ])
 
 </script>
